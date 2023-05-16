@@ -58,7 +58,7 @@ EMAIL_HOST_USER = 'event.calendar022@gmail.com'
 EMAIL_HOST_PASSWORD = 'event_calendar_022'
 
 CRONJOBS = [
-    ('0 * * * *', 'your_app.tasks.send_event_reminders')
+    ('0 * * * *', 'reminders.views.send_event_reminders')
 ]
 
 CELERY_BROKER_URL = 'sqla+sqlite:///celery.sqlite3'
