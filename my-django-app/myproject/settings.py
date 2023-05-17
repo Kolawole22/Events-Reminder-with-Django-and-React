@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zy92d@#tt5g0j&8b%c7@_licet_ra8f#x^)*pm=puhsj4s*yop"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',  # djangorestframework token authentication
     'debug_toolbar',
     'django_crontab',
-    'django_celery_results',
 
     'reminders'
 
@@ -61,19 +60,6 @@ CRONJOBS = [
     ('0 * * * *', 'reminders.views.send_event_reminders')
 ]
 
-CELERY_BROKER_URL = 'sqla+sqlite:///celery.sqlite3'
-CELERY_RESULT_BACKEND = 'db+sqlite:///celery.sqlite3'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_TIMEZONE = 'UTC'
-
-# ...
-
-CELERY_BEAT_SCHEDULE = {
-    'send_event_reminders': {
-        'task': 'your_app.tasks.send_event_reminders',
-        'schedule': timedelta(minutes=1),  # Adjust as needed
-    },
-}
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

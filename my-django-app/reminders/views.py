@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.conf import settings
 from .models import Reminder
 from .serializers import ReminderSerializer, UserSerializer
 from django.contrib.auth import authenticate
@@ -13,8 +14,6 @@ from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.conf import settings
-from celery import shared_task
 
 
 # Create your views here.
@@ -77,7 +76,6 @@ class SignUpView(generics.CreateAPIView):
             return Response(serializer.errors, status=400)
 
 
-@shared_task
 def send_event_reminder(reminder_id):
     try:
         reminder = Reminder.objects.get(id=reminder_id)
